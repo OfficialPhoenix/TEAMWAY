@@ -23,7 +23,7 @@ app.get('/', (req, res)=>{
 app.get('/agent/dashboard', (req, res)=>{
     if(req.cookies.jwt){
         const verify = jwt.verify(req.cookies.jwt,
-          'mzow8ajk672928hsuuaomlafhjkkcmpwiajaui4783gtoeueee')
+          process.env.secret_key)
         res.render("agentdashboard.ejs", {username:verify.username})
       }
       else{
@@ -33,7 +33,7 @@ app.get('/agent/dashboard', (req, res)=>{
 app.get('/agent/dashboard/new_lead', (req, res)=>{
   if(req.cookies.jwt){
     const verify = jwt.verify(req.cookies.jwt,
-      'mzow8ajk672928hsuuaomlafhjkkcmpwiajaui4783gtoeueee')
+      process.env.secret_key)
     res.render("newlead.ejs",{message: ""})
   }else{
     res.redirect('/agent/dashboard')
@@ -54,7 +54,7 @@ app.post('/', (req, res)=>{
         password: process.env.userAgentPassword
     }
     const token = jwt.sign({username: user.username}, 
-        'mzow8ajk672928hsuuaomlafhjkkcmpwiajaui4783gtoeueee')
+      process.env.secret_key)
       res.cookie('jwt', token,{
         maxAge: 600000,
         httpOnly: true
