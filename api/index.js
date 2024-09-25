@@ -17,7 +17,7 @@ app.use(cookieParser())
 
 //API routes
 app.get('/', (req, res)=>{
-    res.render('agentlog.ejs', {error: ""})
+    res.send("Hello")
 })
 app.get('/agent/dashboard', (req, res)=>{
     if(req.cookies.jwt){
