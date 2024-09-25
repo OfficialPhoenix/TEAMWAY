@@ -64,9 +64,9 @@ app.post('/agent', (req, res)=>{
     const databaseConnection = mysql.createConnection({
         user: req.body.username,
         password: req.body.password,
-        database: 'mydatabase',
-        host: 'localhost',
-        port: 3307
+        database: process.env.userDB,
+        host: process.env.userHost,
+        port: process.env.userPort
     })
     databaseConnection.connect((err)=>{
         if(err){
@@ -90,9 +90,9 @@ app.post('/new_lead', (req, res)=>{
   const databaseConnection = mysql.createConnection({
     user: process.env.userAgent,
     password: process.env.userAgentPassword,
-    database: 'mydatabase',
-    host: 'localhost',
-    port: 3307
+    database: process.env.userDB,
+    host: process.env.userHost,
+    port: process.env.userPort
 })
 databaseConnection.connect((err)=>{
   if(!err){
@@ -129,9 +129,9 @@ app.get('/agent/dashboard/leads',(req, res)=>{
   const databaseConnection = mysql.createConnection({
     user: process.env.userAgent,
     password: process.env.userAgentPassword,
-    database: 'mydatabase',
-    host: 'localhost',
-    port: 3307
+    database: process.env.userDB,
+    host: process.env.userHost,
+    port: process.env.userPort
   })
   databaseConnection.connect((err)=>{
     if(!err){
@@ -143,5 +143,27 @@ app.get('/agent/dashboard/leads',(req, res)=>{
   })
 
 })
+// app.get('/leads/:id', (req, res)=>{
+//   const databaseConnection = mysql.createConnection({
+//     user: process.env.userAgent,
+//     password: process.env.userAgentPassword,
+//     database: 'mydatabase',
+//     host: 'localhost',
+//     port: 3307
+//   })
+//   databaseConnection.connect((err)=>{
+//     if(!err){
+//       databaseConnection.query('delete from leads where id = ?', [req.params.id], (err)=>{
+//         if(!err){
+//           res.send(`A lead with id ${req.params.id} has been deleted`)
+//         }else{
+//           res.send("Unable to delete lead")
+//         }
+//       })
+//     }
+
+//   })
+
+// })
 
 app.listen(port, ()=>console.log(`Server is listening to port ${port}`))
