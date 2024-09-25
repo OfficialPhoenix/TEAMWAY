@@ -5,6 +5,7 @@ const express = require("express")
 const mysql = require('mysql')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
+const ejs = require('ejs')
 
 const app = express() //express server function
 const port = 3000 //express server port
@@ -14,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 // app.use(express.static('public'))
 app.use(cookieParser())
-
+app.use(ejs())
 //API routes
 app.get('/', (req, res)=>{
     res.render('agentlog.ejs', {error: ""})
