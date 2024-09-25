@@ -17,7 +17,7 @@ app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 //API routes
 app.get('/', (req, res)=>{
-    res.sendFile(__dirname + "/public/agentdashboard.html")
+    res.render("agentdashboard")
 })
 app.get('/agent/dashboard', (req, res)=>{
     if(req.cookies.jwt){
