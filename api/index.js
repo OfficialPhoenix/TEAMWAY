@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 // app.use(express.static('public'))
 app.use(cookieParser())
-app.use(ejs())
+app.use(ejs.render())
 //API routes
 app.get('/', (req, res)=>{
     res.render('agentlog.ejs', {error: ""})
