@@ -5,15 +5,14 @@ const express = require("express")
 const mysql = require('mysql')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
-const { json } = require("body-parser")
 
 const app = express() //express server function
-const port = 3000 //express server port
+// const port = 3000 //express server port
 
 //Middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-app.use(express.static('public'))
+// app.use(express.static('public'))
 app.use(cookieParser())
 
 //API routes
@@ -140,4 +139,4 @@ app.get('/agent/dashboard/leads',(req, res)=>{
 })
 
 
-app.listen(port, ()=>console.log(`Server is listening to port ${port}`))
+// app.listen(port, ()=>console.log(`Server is listening to port ${port}`))
