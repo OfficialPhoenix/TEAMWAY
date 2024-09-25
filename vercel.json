@@ -1,7 +1,6 @@
 {
     "version": 2,
     "name": "templates",
-    "lookup": "views",
     "builds": [{
       "src": "/index.js",
       "use": "@vercel/node"
