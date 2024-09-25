@@ -12,6 +12,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&family=Sofia&display=swap');
         *{
             margin: 0;
+            box-sizing: border-box;
         }
         body{
             background-color: rgb(22, 82, 82);
@@ -20,7 +21,7 @@
             margin: auto;
             margin-top: 5%;
             padding: 2%;
-            width: 320px;
+            width: fit-content;
             height: fit-content;
             background-color: white;
         }
@@ -30,9 +31,9 @@
             font-weight: bold;
         }
         input{
-            width: 300px;
+            width: 350px;
             font-size: 16px;
-            padding: 5%;
+            padding: 2%;
         }
         form button{
             width: 320px;
@@ -73,7 +74,7 @@
             <label>Phone Number</label><br>
             <input type="number" name="phone" minlength="11" maxlength="11" />
             <br><br>
-            <button type="submit">Submit</button>
+            <button type="submit">Submit</button><br>
             <a href="/agent/dashboard" style="font-size: 16px;">Goto dashboard</a>
         </form>
     </div>
