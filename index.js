@@ -13,17 +13,18 @@ const port = 3000 //express server port
 //Middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-// app.use(express.static('public'))
+app.use(express.static('public'))
 app.use(cookieParser())
 //API routes
 app.get('/', (req, res)=>{
-    res.render('agentlog.ejs' ,{error: ""})
+    res.sendFile(__dirname + "/public/agentlog.html")
 })
 app.get('/agent/dashboard', (req, res)=>{
     if(req.cookies.jwt){
         const verify = jwt.verify(req.cookies.jwt,
           process.env.secret_key)
-        res.render("agentdashboard.ejs", {username:verify.username})
+          res.sendFile(__dirname + "/public/agentdashboard.html")
+
       }
       else{
         res.redirect('/')
@@ -33,7 +34,8 @@ app.get('/agent/dashboard/new_lead', (req, res)=>{
   if(req.cookies.jwt){
     const verify = jwt.verify(req.cookies.jwt,
       process.env.secret_key)
-    res.render("newlead.ejs",{message: ""})
+      res.sendFile(__dirname + "/public/newlead.html")
+
   }else{
     res.redirect('/agent/dashboard')
   }
@@ -69,7 +71,8 @@ app.post('/agent', (req, res)=>{
         if(err){
             console.log(err)
             const error = "Access Denied!!!"
-            res.render("agentlog.ejs", {error})
+            res.sendFile(__dirname + "/public/agentlog.html")
+
         }
         else{
               res.cookie('jwt', token,{
@@ -97,7 +100,9 @@ databaseConnection.connect((err)=>{
       if(!err){
         if(result.length > 0){
           const message = "A lead with the provided email already exist!"
-          res.render('newlead.ejs', {message})
+          // res.render('newlead.ejs', {message})
+          res.sendFile(__dirname + "/public/newlead.html")
+
         }else{
           const date = new Date()
           const datenow = date.toISOString().slice(0, 10)
@@ -108,7 +113,9 @@ databaseConnection.connect((err)=>{
              (err)=>{
               if(!err){
                 const message = "A new lead added successfully"
-                res.render('newlead.ejs', {message})
+                // res.render('newlead.ejs', {message})
+                res.sendFile(__dirname + "/public/newlead.html")
+
               }
             })
         }
