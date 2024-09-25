@@ -15,15 +15,16 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(express.static('public'))
 app.use(cookieParser())
+app.set('view engine', 'ejs')
 //API routes
 app.get('/', (req, res)=>{
-    res.sendFile(__dirname + "/public/agentlog.html")
+    res.render('agentlog', {message: ""})
 })
 app.get('/agent/dashboard', (req, res)=>{
     if(req.cookies.jwt){
         const verify = jwt.verify(req.cookies.jwt,
           process.env.secret_key)
-          res.sendFile(__dirname + "/public/agentdashboard.html")
+          res.render('agentdashboard.ejs', {username:verify.username})
 
       }
       else{
@@ -34,7 +35,7 @@ app.get('/agent/dashboard/new_lead', (req, res)=>{
   if(req.cookies.jwt){
     const verify = jwt.verify(req.cookies.jwt,
       process.env.secret_key)
-      res.sendFile(__dirname + "/public/newlead.html")
+      res.render('newlead.ejs', {message: ""})
 
   }else{
     res.redirect('/agent/dashboard')
@@ -70,8 +71,8 @@ app.post('/agent', (req, res)=>{
     databaseConnection.connect((err)=>{
         if(err){
             console.log(err)
-            const error = "Access Denied!!!"
-            res.sendFile(__dirname + "/public/agentlog.html")
+            const message = "Access Denied!!!"
+            res.render('agentlog.ejs', {message})
 
         }
         else{
@@ -100,8 +101,7 @@ databaseConnection.connect((err)=>{
       if(!err){
         if(result.length > 0){
           const message = "A lead with the provided email already exist!"
-          // res.render('newlead.ejs', {message})
-          res.sendFile(__dirname + "/public/newlead.html")
+          res.render('newlead.ejs', {message})
 
         }else{
           const date = new Date()
@@ -113,8 +113,7 @@ databaseConnection.connect((err)=>{
              (err)=>{
               if(!err){
                 const message = "A new lead added successfully"
-                // res.render('newlead.ejs', {message})
-                res.sendFile(__dirname + "/public/newlead.html")
+                res.render('newlead.ejs', {message})
 
               }
             })
@@ -144,6 +143,5 @@ app.get('/agent/dashboard/leads',(req, res)=>{
   })
 
 })
-
 
 app.listen(port, ()=>console.log(`Server is listening to port ${port}`))
