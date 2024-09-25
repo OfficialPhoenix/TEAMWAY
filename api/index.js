@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 
 const app = express() //express server function
-// const port = 3000 //express server port
+const port = 3000 //express server port
 
 //Middleware
 app.use(express.json())
@@ -17,7 +17,7 @@ app.use(cookieParser())
 
 //API routes
 app.get('/', (req, res)=>{
-    res.send("Hello")
+    res.render('agentlog.ejs', {error: ""})
 })
 app.get('/agent/dashboard', (req, res)=>{
     if(req.cookies.jwt){
@@ -139,4 +139,5 @@ app.get('/agent/dashboard/leads',(req, res)=>{
 })
 
 
-// app.listen(port, ()=>console.log(`Server is listening to port ${port}`))
+app.listen(port, ()=>console.log(`Server is listening to port ${port}`))
+module.exports = app
