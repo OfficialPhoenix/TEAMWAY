@@ -15,7 +15,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 // app.use(express.static('public'))
 app.use(cookieParser())
-app.use(ejs.render())
 //API routes
 app.get('/', (req, res)=>{
     res.render('agentlog.ejs', {error: ""})
@@ -48,7 +47,7 @@ app.get('/logout', (req, res)=>{
 
 
 //Agent Login Authentication
-app.post('/', (req, res)=>{
+app.post('/agent', (req, res)=>{
     const user = {
         username: process.env.userAgent,
         password: process.env.userAgentPassword
